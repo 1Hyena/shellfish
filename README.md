@@ -22,6 +22,8 @@ CashAddr: QZVQPSVVET3CPPU9Y0PE8L4ALPHQJCS09URP9RUJDH
 
 
 # Sample Output
+Quick demo here: https://jsfiddle.net/xfmumpq3/
+
 ```
 HonestMinings found block 406->409 at 31s (00000000010111010110001011100110 / 11111111010101111100001000100010 / +43324, 9 BPS).
 ShellFishPool rejects work at block 408 and starts mining from 409.
