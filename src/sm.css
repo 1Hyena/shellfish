@@ -1,0 +1,225 @@
+* {margin:0; padding:0;}
+html, body {height:100%; width:100%; overflow: hidden;}
+
+body {
+    background-color: transparent;
+}
+
+.app-borderbox {
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.app-appear {
+    opacity: 0;
+    -webkit-animation-name: appear-anim;
+    -webkit-animation-duration: 0.5s;
+    animation-name: appear-anim;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@-webkit-keyframes appear-anim {
+    0%   {opacity: 0;}
+    100% {opacity: 1;}
+}
+@keyframes appear-anim {
+    0%   {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.app-disappear {
+    opacity: 1;
+    -webkit-animation-name: disappear-anim;
+    -webkit-animation-duration: 0.5s;
+    animation-name: disappear-anim;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@-webkit-keyframes disappear-anim {
+    0%   {opacity: 1;}
+    100% {opacity: 0;}
+}
+@keyframes disappear-anim {
+    0%   {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+.app-hud {
+    color: silver;
+    text-shadow: 0.25vmin 0.25vmin 0.25vmin rgba(255,255,255,0.8), -0.25vmin -0.25vmin 0.25vmin rgba(0,0,0,0.8);
+}
+
+#app {
+    /*background-color: rgba(0,0,0, 0.5);*/
+}
+
+.app-hourglass {
+    font-size: 400%;
+}
+
+#app-main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#app-abs-output {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+#app-input {
+    width: 100%;
+}
+
+.app-borderbox {
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+input, input:focus {
+  border: 0.1ch inset gray;
+  outline: solid 0px;
+  box-shadow: none;
+  padding: 0.5ch;
+}
+input:focus {
+  outline-offset: 0;
+}
+input {
+    background-color: rgba(255,255,255,0.1);
+    color: silver;
+}
+
+#app-terminal {
+    display:      table;
+    width:        100%;
+    height:       100%;
+    table-layout: fixed;
+}
+
+#app-output-wrapper {
+    display: table-row;
+    width: 100%;
+    height: 100%;
+}
+
+#app-output-wrapper-scrollbox {
+    width:    100%;
+    height:   100%;
+    position: relative;
+    overflow: auto;
+    visibility: hidden;
+}
+
+#app-output-container {
+    width:    100%;
+    height:   100%;
+    /*overflow: visible;*/
+}
+
+#app-output-container,
+#app-output-wrapper-scrollbox:hover,
+#app-output-wrapper-scrollbox:focus {
+    visibility: visible;
+}
+
+#app-output-wrapper-scrollbox:focus {
+    background-color: red;
+}
+
+#app-output {
+    color: silver;
+    font-family: "Courier New", monospace;
+    white-space: pre;
+    font-size: small;
+}
+
+#app-output.mobile {
+    font-size: xx-small;
+}
+
+#app-input-wrapper {
+    display: table-row;
+    width:   100%;
+}
+
+#app-input-padding {
+    padding: 0.75ch;
+}
+
+#app-input {
+    font-size: inherit;
+}
+
+:not(.ansi-format-7).ansi-bg-0 {    background-color: #282a2e; }
+:not(.ansi-format-7).ansi-fg-0 {               color: #282a2e; }
+:not(.ansi-format-7).ansi-bg-1 {    background-color: #a54242; }
+:not(.ansi-format-7).ansi-fg-1 {               color: #a54242; }
+:not(.ansi-format-7).ansi-bg-2 {    background-color: #8c9440; }
+:not(.ansi-format-7).ansi-fg-2 {               color: #8c9440; }
+:not(.ansi-format-7).ansi-bg-3 {    background-color: #de935f; }
+:not(.ansi-format-7).ansi-fg-3 {               color: #de935f; }
+:not(.ansi-format-7).ansi-bg-4 {    background-color: #5f819d; }
+:not(.ansi-format-7).ansi-fg-4 {               color: #5f819d; }
+:not(.ansi-format-7).ansi-bg-5 {    background-color: #85678f; }
+:not(.ansi-format-7).ansi-fg-5 {               color: #85678f; }
+:not(.ansi-format-7).ansi-bg-6 {    background-color: #5e8d87; }
+:not(.ansi-format-7).ansi-fg-6 {               color: #5e8d87; }
+:not(.ansi-format-7).ansi-bg-7 {    background-color: #707880; }
+:not(.ansi-format-7).ansi-fg-7 {               color: #707880; }
+:not(.ansi-format-7).ansi-fg-0.ansi-format-1 { color: #373b41; }
+:not(.ansi-format-7).ansi-fg-1.ansi-format-1 { color: #cc6666; }
+:not(.ansi-format-7).ansi-fg-2.ansi-format-1 { color: #b5bd68; }
+:not(.ansi-format-7).ansi-fg-3.ansi-format-1 { color: #f0c674; }
+:not(.ansi-format-7).ansi-fg-4.ansi-format-1 { color: #81a2be; }
+:not(.ansi-format-7).ansi-fg-5.ansi-format-1 { color: #b294bb; }
+:not(.ansi-format-7).ansi-fg-6.ansi-format-1 { color: #8abeb7; }
+:not(.ansi-format-7).ansi-fg-7.ansi-format-1 { color: #c5c8c6; }
+
+/* REVERSE VIDEO: */
+.ansi-format-7.ansi-bg-0 {               color: #282a2e; }
+.ansi-format-7.ansi-fg-0 {               background-color: #282a2e; }
+.ansi-format-7.ansi-bg-1 {               color: #a54242; }
+.ansi-format-7.ansi-fg-1 {               background-color: #a54242; }
+.ansi-format-7.ansi-bg-2 {               color: #8c9440; }
+.ansi-format-7.ansi-fg-2 {               background-color: #8c9440; }
+.ansi-format-7.ansi-bg-3 {               color: #de935f; }
+.ansi-format-7.ansi-fg-3 {               background-color: #de935f; }
+.ansi-format-7.ansi-bg-4 {               color: #5f819d; }
+.ansi-format-7.ansi-fg-4 {               background-color: #5f819d; }
+.ansi-format-7.ansi-bg-5 {               color: #85678f; }
+.ansi-format-7.ansi-fg-5 {               background-color: #85678f; }
+.ansi-format-7.ansi-bg-6 {               color: #5e8d87; }
+.ansi-format-7.ansi-fg-6 {               background-color: #5e8d87; }
+.ansi-format-7.ansi-bg-7 {               color: #707880; }
+.ansi-format-7.ansi-fg-7 {               background-color: #707880; }
+.ansi-format-7.ansi-fg-0.ansi-format-1 { background-color: #373b41; }
+.ansi-format-7.ansi-fg-1.ansi-format-1 { background-color: #cc6666; }
+.ansi-format-7.ansi-fg-2.ansi-format-1 { background-color: #b5bd68; }
+.ansi-format-7.ansi-fg-3.ansi-format-1 { background-color: #f0c674; }
+.ansi-format-7.ansi-fg-4.ansi-format-1 { background-color: #81a2be; }
+.ansi-format-7.ansi-fg-5.ansi-format-1 { background-color: #b294bb; }
+.ansi-format-7.ansi-fg-6.ansi-format-1 { background-color: #8abeb7; }
+.ansi-format-7.ansi-fg-7.ansi-format-1 { background-color: #c5c8c6; }
+
+.ansi-format-1 { font-weight: bold; }
+.ansi-format-3 { font-style: italic; }
+.ansi-format-4 { text-decoration: underline; }
+.ansi-format-9 { text-decoration: line-through; }
+

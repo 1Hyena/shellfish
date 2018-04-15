@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Selfish Mining Simulator</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="application-name" content="Selfish Mining Simulator"/>
+<meta name="description" content="A Selfish Mining Simulator written in JavaScript." />
+<meta name="keywords" content="selfish mining, SM simulator, selfish mining simulator" />
+<!-- BEGIN EXTERNAL CSS -->
+<link href="./sm.css" rel="stylesheet" type="text/css">
+<!-- END EXTERNAL CSS -->
+
+<style media="screen" type="text/css">
+/* PASTE EXTERNAL CSS HERE */
+</style>
+
+<!-- BEGIN EXTERNAL SCRIPTS -->
+<script src="./sm.js"    type="text/javascript" charset="UTF-8"></script>
+<!-- END EXTERNAL SCRIPTS -->
+</head>
+<body>
+
+<div id="app" style="height: 100%;" class="app-appear">
+    <div id="app-main">
+        <div style="display:table; width: 100%; height: 100%; text-align: center;">
+            <div style="display:table-cell;vertical-align:middle;">
+                <div style="margin-left:auto;margin-right:auto;">
+                    <span id="app-no-script" class="app-hud">Please enable JavaScript.</span>
+                    <br>
+                    <span id="app-progress" class="app-hud">&nbsp;</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+var noscript = document.getElementById("app-no-script");
+while (noscript.hasChildNodes()) noscript.removeChild(noscript.lastChild);
+noscript.appendChild(document.createTextNode("⌛"));
+noscript.classList.add("app-hourglass");
+
+function show_progress(text) {
+    var progress = document.getElementById("app-progress");
+    while (progress.hasChildNodes()) progress.removeChild(progress.lastChild);
+    progress.appendChild(document.createTextNode(text));
+}
+
+function fade_out() {
+    var app = document.getElementById("app");
+    if (app !== null) {
+        if (app.classList.contains('app-appear'))     app.classList.remove('app-appear');
+        if (!app.classList.contains('app-disappear')) app.classList.add('app-disappear');
+    }
+}
+window.onbeforeunload = fade_out;
+</script>
+
+<!-- PASTE EXTERNAL JS HERE -->
+
+<!-- BEGIN EXTERNAL SFX -->
+
+<!-- END EXTERNAL SFX -->
+
+<div style="display:none;">
+<!-- BEGIN EXTERNAL GFX -->
+
+<!-- END EXTERNAL GFX -->
+</div>
+
+<script>
+app_start();
+</script>
+
+</body>
+</html>
+
