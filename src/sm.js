@@ -9,19 +9,19 @@ var BPS = 0;
 
 var POOLS = {
     HM : {
-        HPP    : 66,
-        bonus  : 0,
-        ansi   : "\x1b[32mHonestMinings",
-        blocks : null,
-        shellfish : false
+        HPP     : 66,
+        bonus   : 0,
+        ansi    : "\x1b[32mHonestMinings",
+        blocks  : null,
+        selfish : false
     },
     SM : {
-        HPP    : 33,
-        bonus  : 0,
-        ansi   : "\x1b[1;31mS\x1b[22;31mhell\x1b[1;31mF\x1b[22;31mish\x1b[1;34mP\x1b[22;34mool\x1b[31m",
-        blocks : null,
-        score  : 0,
-        shellfish : true
+        HPP     : 33,
+        bonus   : 0,
+        ansi    : "\x1b[1;31mS\x1b[22;31mhell\x1b[1;31mF\x1b[22;31mish\x1b[1;34mP\x1b[22;34mool\x1b[31m",
+        blocks  : null,
+        score   : 0,
+        selfish : true
     }
 };
 
@@ -42,7 +42,7 @@ function create_block() {
 
 function set_blockchain(pool) {
     if (POOLS[pool].blocks === null) POOLS[pool].blocks = BLOCKS;
-    if (POOLS[pool].shellfish) {
+    if (POOLS[pool].selfish) {
         return;
     }
     if (BLOCKS.height < POOLS[pool].blocks.height) {
@@ -62,7 +62,7 @@ function get_blockchain(pool) {
         POOLS[pool].blocks = BLOCKS;
         POOLS[pool].score = 0;
     }
-    else if (POOLS[pool].shellfish) {
+    else if (POOLS[pool].selfish) {
         var old_score = POOLS[pool].score;
         var new_score = POOLS[pool].blocks.height - BLOCKS.height;
         if (new_score < old_score) {
@@ -74,8 +74,30 @@ function get_blockchain(pool) {
                 POOLS[pool].score = 0;
             }
             else {
-                BLOCKS = POOLS[pool].blocks;
-                POOLS[pool].score = 0;
+                var blocks = POOLS[pool].blocks;
+                var reveal_to = null;
+                while (blocks !== null) {
+                    if (blocks.height === BLOCKS.height) {
+                        break;
+                    }
+                    reveal_to = blocks;
+                    blocks = blocks.next;
+                }
+
+                var reveal_from = reveal_to;
+                var reveal_count = (reveal_to ? 1 : 0);
+                while (reveal_from !== null) {
+                    if (reveal_from.next !== null
+                    &&  BLOCKS.next      !== null
+                    &&  reveal_from.next.id === BLOCKS.next.id) {
+                        break;
+                    }
+                    reveal_from = reveal_from.next;
+                    reveal_count++;
+                }
+
+                BLOCKS = (reveal_to !== null ? reveal_to : POOLS[pool].blocks);
+                POOLS[pool].score = (reveal_to !== null ? (POOLS[pool].score - reveal_count)  : 0);
                 var share = 0;
 
                 // Let's calculate the percentage of SM's blocks...
@@ -83,7 +105,7 @@ function get_blockchain(pool) {
                     var block = BLOCKS;
                     var i  = 0;
                     var shares = {};
-                    for (i=0; i<144; ++i) {
+                    for (i=0; i<14400; ++i) {
                         if (block === null) break;
 
                         if (block.pool in shares) shares[block.pool]++;
@@ -99,7 +121,8 @@ function get_blockchain(pool) {
                     }
                     share = ( pool in shares ? shares[pool] : 0 );
                 }
-                app_receive_output(POOLS[pool].ansi+" \x1b[1;31mreveals "+old_score+" hidden block"+(old_score == 1 ? "" : "s")+" and has mined "+share+"% of blocks!!!\x1b[0m\n");
+                if (reveal_to === null) reveal_count = old_score;
+                app_receive_output(POOLS[pool].ansi+" \x1b[1;31mreveals "+reveal_count+" hidden block"+(reveal_count == 1 ? "" : "s")+" and has mined "+share+"% of blocks!!!\x1b[0m\n");
             }
         }
     }
@@ -128,7 +151,7 @@ function calc_diff(blocks) {
     var bpbt = (i/dt) * BLOCK_TIME; // Blocks per Block Time
     BPS = (i / dt);
 
-    if (i < 144 || true) {
+    if (i < 3*144 || true) {
         var w1 = (W/i);
         var w2 = 0;
 
@@ -142,7 +165,7 @@ function calc_diff(blocks) {
         w2 = Math.floor(Math.max(Math.min(f, (-1 >>> 0)), 1));
         return w2;
     }
-
+    return blocks.diff;
 }
 
 function mine_block(pool) {
@@ -157,7 +180,6 @@ function mine_block(pool) {
     if (POOLS[pool].HPP > 0) {
         for (; hpp>0; --hpp) {
             next_salt = Math.random().toString(36).substring(2);
-            next_salt+= Math.random().toString(36).substring(2);
             next_hash = hashCode(blocks.hash+(BLOCK_ID+next_salt));
             var max_hash = ( (-1 >>> 0) - diff);
             if (next_hash <= max_hash) {
@@ -312,7 +334,7 @@ function app_main_loop() {
         var block = BLOCKS;
         var i  = 0;
         var shares = {};
-        for (i=0; i<144; ++i) {
+        for (i=0; i<14400; ++i) {
             if (block === null) break;
 
             if (block.pool in shares) shares[block.pool]++;
