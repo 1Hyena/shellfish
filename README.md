@@ -1,17 +1,36 @@
 # ShellFish
+ShellFish is a Selfish Mining simulator that uses the Monte Carlo method to test
+the viability of Selfish Mining. It is written in JavaScript and its main goal
+is to reveal once and for all whether Selfish Mining poses any practical threats
+to the security of Bitcoin (Bitcoin Cash).
+
 While abstract mathematics may be useful for exploring theoretical implications
 of even more theoretical conditions, a down-to-earth experiment is necessary to
-bring some clarity into view. ShellFish is a Selfish Mining Simulator written in
-JavaScript for the better judgement of Bitcoin's (Bitcoin Cash) Proof-of-Work
-based security model. Its main feature is to simulate the aspect of luck in the
-mining process as closely as possible. For that reason, ShellFish also includes
-a custom difficulty adjustment algorithm in its implementation.
+bring some clarity into view. The main feature of this software is to simulate
+the aspect of luck in the mining process as well as possible. For that reason,
+ShellFish includes a difficulty adjustment algorithm in its implementation and
+the virtual miners actually try to solve the mining puzzle to find new blocks.
 
-This software was made out of scientific curiosity rather than a political bias.
-As a result, the author of this simulator has been convinced that Selfish Mining
-is a non-issue and has no real-world uses. However, enhancemnts (pull requests)
-from third parties are still welcome because a lot is yet to be improved in the
-preciseness of this simulator.
+In its current configuration, the selfish mining pool (named ShellFishPool) owns
+47% of the global hashing power. If the simulator runs for until 15000 blocks
+get mined, it becomes obvious that the selfish mining pool has gained ownership
+over 50% of blocks. These results are consistent regardless of hown many times
+the simulation is executed. In fact, it is the nature of the Monte Carlo method
+to produce progressively more precise results as the simulation keeps running.
+
+On the other hand, if the selfish mining pool controls only 45% of the global
+hashing power, then their block ownership in the final block chain is also 45%,
+as expected by the security model of Bitcoin. According to this simulator, any
+hashing power less than 45% results in even lesser ownership over the resulting
+block chain. This means that Selfish Mining with the hashing power lesser than
+45% is in fact helping the honest miners and is thus counterproductive for the
+selfish miner.
+
+Since any single entity controlling more than 40% of the global hashing power is
+already a huge threat for the whole network even without Selfish Mining, it is
+clear that Selfish Mining is a non-issue. At the point where a single entity has
+accumulated such a large proportion of mining power, the Bitcoin network already
+has bigger fish to fry than the potential threat of Selfish Mining.
 
 
 # Author's Tip Jar
@@ -20,94 +39,69 @@ Base58:   1Erich1YUdkUAp9ynf4Rfw2ug8nBtuUmMu
 CashAddr: QZVQPSVVET3CPPU9Y0PE8L4ALPHQJCS09URP9RUJDH
 ```
 
-
 # Sample Output
-Quick demo here: https://jsfiddle.net/xfmumpq3/
+Quick demo here: https://jsfiddle.net/ksfx0dou/
 
 ```
-HonestMinings found block 406->409 at 31s (00000000010111010110001011100110 / 11111111010101111100001000100010 / +43324, 9 BPS).
-ShellFishPool rejects work at block 408 and starts mining from 409.
-HonestMinings found block 409->410 at 32s (00000000000100011011011001110011 / 11111111010101110111100010010000 / -18834, 8 BPS).
-HonestMinings found block 410->411 at 32s (00000000000101011000101110000111 / 11111111010110000010100110000111 / +45303, 8 BPS).
-HonestMinings found block 411->412 at 32s (00000000010000111001001011011000 / 11111111010110001000111001010010 / +25803, 8 BPS).
-HonestMinings found block 412->413 at 32s (00000000100011001011000110000000 / 11111111010110100010100100101000 / +105174, 8 BPS).
-HonestMinings found block 413->414 at 34s (00000000011101110000010100010110 / 11111110000001110110100010001100 / -22200476, 8 BPS).
-ShellFishPool hides block 414->415 at 34s (00000000001010000111100001010011 / 11111110000010000001110000010011 / +45959, 8 BPS)!
-HonestMinings found block 414->416 at 34s (00000000010101111110000100100010 / 11111110000001110100110101110011 / -6937, 7 BPS).
-ShellFishPool rejects work at block 415 and starts mining from 416.
-ShellFishPool hides block 416->417 at 34s (00000000100011000100100000111100 / 11111110000010000111101011110011 / +77184, 7 BPS)!
-HonestMinings found block 416->418 at 34s (00000000000000010110101011110000 / 11111110000010000011011010110001 / +59710, 7 BPS).
-ShellFishPool rejects work at block 417 and starts mining from 418.
-ShellFishPool hides block 418->419 at 35s (00000000001111000011101100101101 / 11111110000010010101010110111111 / +73486, 7 BPS)!
-HonestMinings found block 418->420 at 35s (00000001101001001010101101110110 / 11111110000010010001000111011111 / +56110, 7 BPS).
-ShellFishPool rejects work at block 419 and starts mining from 420.
-HonestMinings found block 420->421 at 35s (00000000011100000001101001100110 / 11111110000010011001101111110000 / +35345, 7 BPS).
-HonestMinings found block 421->422 at 35s (00000001011100011111111101010001 / 11111110000010101001110111110100 / +66052, 7 BPS).
-HonestMinings found block 422->423 at 35s (00000000001111001011001000110111 / 11111110000010111101010110000100 / +79760, 7 BPS).
-HonestMinings found block 423->424 at 35s (00000000011100110011101110011011 / 11111110000011001011110101100011 / +59359, 7 BPS).
-HonestMinings found block 424->425 at 35s (00000000100010000001011001110100 / 11111110000011011001011111110100 / +55953, 7 BPS).
-HonestMinings found block 425->426 at 35s (00000000000110100000111100011111 / 11111110000011100110010101101010 / +52598, 7 BPS).
-ShellFishPool hides block 426->427 at 35s (00000001001101010001100110000001 / 11111110000011110010000100100010 / +48056, 7 BPS)!
-HonestMinings found block 426->428 at 35s (00000001010111001011110011100101 / 11111110000011101101111010001110 / +31012, 7 BPS).
-ShellFishPool rejects work at block 427 and starts mining from 428.
-HonestMinings found block 428->429 at 35s (00000001010011001101000010011111 / 11111110000011111101001111101000 / +62810, 7 BPS).
-HonestMinings found block 429->430 at 36s (00000000000110111110110011011010 / 11111110000011111111101010101101 / +9925, 7 BPS).
-HonestMinings found block 430->431 at 36s (00000000101101110100001010010101 / 11111110000100001001110011000001 / +41492, 7 BPS).
-HonestMinings found block 431->432 at 36s (00000001011010111001000100100001 / 11111110000100010010110110110001 / +37104, 7 BPS).
-ShellFishPool hides block 432->433 at 36s (00000001100001010110001010011110 / 11111110000100011011000111111111 / +33870, 7 BPS)!
-HonestMinings found block 432->434 at 36s (00000000011000011011010010111000 / 11111110000100010010111011000010 / +273, 7 BPS).
-ShellFishPool rejects work at block 433 and starts mining from 434.
-ShellFishPool hides block 434->435 at 36s (00000000010100010010011011101000 / 11111110000100011110011010111100 / +47098, 7 BPS)!
-ShellFishPool hides block 435->436 at 36s (00000000001101100101001111111110 / 11111110000100100101010111110001 / +28469, 7 BPS)!
-ShellFishPool hides block 436->437 at 36s (00000000100111111000001010000010 / 11111110000100100011000111110101 / -9212, 7 BPS)!
-HonestMinings found block 434->438 at 36s (00000001101000111100011011110110 / 11111110000100001010000110100011 / -36127, 7 BPS).
-ShellFishPool reveals 3 hidden blocks and has mined 24% of blocks!!!
-ShellFishPool hides block 437->439 at 37s (00000001100011000100010010111111 / 11111110000100011011110001011010 / -30107, 7 BPS)!
-ShellFishPool hides block 439->440 at 37s (00000000010100100001000001000001 / 11111110000100011111101001000000 / +15846, 7 BPS)!
-HonestMinings found block 437->441 at 37s (00000001110101111110100100110110 / 11111110000100001111110001000110 / -79279, 7 BPS).
-ShellFishPool reveals 2 hidden blocks and has mined 24% of blocks!!!
-HonestMinings found block 440->442 at 37s (00000000100111100000100010010111 / 11111110000100011010101110000101 / -20155, 7 BPS).
-HonestMinings found block 442->443 at 37s (00000001000101000011010111011010 / 11111110000100011100111100110100 / +9135, 7 BPS).
-ShellFishPool hides block 443->444 at 37s (00000000011011001010111011101010 / 11111110000100011010001010000010 / -11442, 7 BPS)!
-HonestMinings found block 443->445 at 37s (00000001000000111100000000010010 / 11111110000100010010001110101010 / -43914, 7 BPS).
-ShellFishPool rejects work at block 444 and starts mining from 445.
-ShellFishPool hides block 445->446 at 37s (00000001111001001110001010000111 / 11111110000100010010100000110110 / +1164, 7 BPS)!
-HonestMinings found block 445->447 at 37s (00000001001111100110001100111110 / 11111110000100001110100100011010 / -14992, 7 BPS).
-ShellFishPool rejects work at block 446 and starts mining from 447.
-ShellFishPool hides block 447->448 at 37s (00000001110001111001111101100011 / 11111110000100010001111110011111 / +13957, 7 BPS)!
-HonestMinings found block 447->449 at 37s (00000000111000111011000001100001 / 11111110000100001110000010000010 / -2200, 7 BPS).
-ShellFishPool rejects work at block 448 and starts mining from 449.
-HonestMinings found block 449->450 at 37s (00000000110111111101101111010101 / 11111110000100001100111110101000 / -4314, 7 BPS).
-HonestMinings found block 450->451 at 37s (00000000110011001010101100111000 / 11111110000100001111000110010010 / +8682, 7 BPS).
-HonestMinings found block 451->452 at 38s (00000001101010000110111110101011 / 11111110000100001100110011000111 / -9419, 7 BPS).
-HonestMinings found block 452->453 at 38s (00000001001101000101001011011010 / 11111110000100001001001110011111 / -14632, 7 BPS).
-HonestMinings found block 453->454 at 38s (00000001011000011100111001110001 / 11111110000100000100110111101111 / -17840, 7 BPS).
-HonestMinings found block 454->455 at 38s (00000001001001110011011010111010 / 11111110000011111111101110111100 / -21043, 7 BPS).
-ShellFishPool hides block 455->456 at 38s (00000001000111010111111001011000 / 11111110000011111101110010001110 / -7982, 7 BPS)!
-HonestMinings found block 455->457 at 38s (00000000110001011101011001010010 / 11111110000011111001110100001010 / -24242, 7 BPS).
-ShellFishPool rejects work at block 456 and starts mining from 457.
-ShellFishPool hides block 457->458 at 38s (00000000010100100110110000111011 / 11111110000011110010110111110001 / -28441, 7 BPS)!
-HonestMinings found block 457->459 at 38s (00000000011010011100000011000011 / 11111110000011101110111010010100 / -44662, 7 BPS).
-ShellFishPool rejects work at block 458 and starts mining from 459.
-ShellFishPool hides block 459->460 at 38s (00000001110010110100000111111101 / 11111110000011100011001011010000 / -48068, 7 BPS)!
-HonestMinings found block 459->461 at 38s (00000001100101110100110111011001 / 11111110000011011111001111001100 / -64200, 7 BPS).
-ShellFishPool rejects work at block 460 and starts mining from 461.
-ShellFishPool hides block 461->462 at 38s (00000000000010001111110001111101 / 11111110000011011010010001000001 / -20363, 7 BPS)!
-HonestMinings found block 461->463 at 38s (00000001001111110100100000101110 / 11111110000011010110010100101100 / -36512, 7 BPS).
-ShellFishPool rejects work at block 462 and starts mining from 463.
-ShellFishPool hides block 463->464 at 38s (00000000001000011111100110010101 / 11111110000011010001000001111011 / -21681, 7 BPS)!
-ShellFishPool hides block 464->465 at 38s (00000001110101010110110101111101 / 11111110000011001011001110111110 / -23741, 7 BPS)!
-ShellFishPool hides block 465->466 at 39s (00000001100010000000000101101100 / 11111110000011000000111100110101 / -42121, 7 BPS)!
-HonestMinings found block 463->467 at 39s (00000001110010000101101101101100 / 11111110000011000001010100010011 / -86041, 7 BPS).
-ShellFishPool reveals 3 hidden blocks and has mined 19% of blocks!!!
-ShellFishPool hides block 466->468 at 39s (00000000100011011111000100110011 / 11111110000010110010000111101101 / -60744, 7 BPS)!
-ShellFishPool hides block 468->469 at 39s (00000001001111111001111001101101 / 11111110000010100110011010101011 / -47938, 7 BPS)!
-ShellFishPool hides block 469->470 at 39s (00000000110101110111110110011001 / 11111110000010011101101011000101 / -35814, 7 BPS)!
-ShellFishPool hides block 470->471 at 39s (00000000110100000011110110001000 / 11111110000010010000001011100011 / -55266, 7 BPS)!
-ShellFishPool hides block 471->472 at 39s (00000001000010110010011011101010 / 11111110000010000101111000101001 / -42170, 7 BPS)!
-ShellFishPool hides block 472->473 at 39s (00000000101011010111110100010011 / 11111110000001110111000001100110 / -60867, 7 BPS)!
-ShellFishPool hides block 473->474 at 39s (00000000001111111111110011110101 / 11111110000001100111010110001001 / -64221, 7 BPS)!
-HonestMinings found block 466->475 at 39s (00000001101001100111010101000110 / 11111110000010001011000100000111 / -220718, 7 BPS).
-ShellFishPool reveals 7 hidden blocks and has mined 23% of blocks!!!
+ShellFishPool hides block 15379->15380 at 663s (00000011001001000110010011101100 / 11111100110100111110010000101010 / -244530, 15 BPS)!
+ShellFishPool hides block 15380->15381 at 663s (00000000101001011011100110000010 / 11111100110100000001011100111011 / -249071, 15 BPS)!
+ShellFishPool hides block 15381->15382 at 663s (00000001111110000010010101010101 / 11111100110011001010100001101010 / -224977, 16 BPS)!
+ShellFishPool hides block 15382->15383 at 664s (00000010011111111101000111110011 / 11111100110010001011111110010011 / -256215, 16 BPS)!
+ShellFishPool hides block 15383->15384 at 664s (00000001000011111110001000101111 / 11111100110001001100011001110010 / -260385, 16 BPS)!
+HonestMinings found block 15379->15385 at 664s (00000010011111101110010011010110 / 11111100110100011010011100100011 / -391225, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+ShellFishPool hides block 15384->15386 at 664s (00000001101000010100010101110011 / 11111100110000001100001111010101 / -262813, 16 BPS)!
+HonestMinings found block 15381->15387 at 664s (00000000001101110011001001011110 / 11111100110010100110001111111100 / -373567, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+ShellFishPool hides block 15386->15388 at 664s (00000010100010100111111011101100 / 11111100101111001011001011101101 / -266472, 16 BPS)!
+ShellFishPool hides block 15388->15389 at 664s (00000000111110111101001000111110 / 11111100101110001111101010111101 / -243760, 16 BPS)!
+ShellFishPool hides block 15389->15390 at 664s (00000000000001100001011101110101 / 11111100101101010011010111001100 / -247025, 16 BPS)!
+ShellFishPool hides block 15390->15391 at 664s (00000001111011101110011000100110 / 11111100101100001110110000100001 / -281003, 16 BPS)!
+HonestMinings found block 15383->15392 at 664s (00000001111100011100110100011000 / 11111100110000010010000110010010 / -499201, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+ShellFishPool hides block 15391->15393 at 664s (00000011001110001111101011101010 / 11111100101011000001011111111110 / -316451, 16 BPS)!
+ShellFishPool hides block 15393->15394 at 664s (00000011001111011100001110001001 / 11111100101001111010011101000001 / -291005, 16 BPS)!
+ShellFishPool hides block 15394->15395 at 664s (00000000101011111010010010010010 / 11111100101000110010010111101000 / -295257, 16 BPS)!
+HonestMinings found block 15386->15396 at 664s (00000000101000001101001101101010 / 11111100101110010000010011110010 / -507619, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+HonestMinings found block 15389->15397 at 664s (00000001001001110000111111000001 / 11111100101100011110111000100011 / -461978, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+ShellFishPool hides block 15395->15398 at 664s (00000010000111111111010100111011 / 11111100100111011001110100001101 / -362715, 15 BPS)!
+ShellFishPool hides block 15398->15399 at 664s (00000000110101011111101001110111 / 11111100100110011110000101011110 / -244655, 16 BPS)!
+ShellFishPool hides block 15399->15400 at 664s (00000001101110100000101101101110 / 11111100100101010001111101110010 / -311788, 16 BPS)!
+ShellFishPool hides block 15400->15401 at 664s (00000010111100000011100110011110 / 11111100100100000100010001100111 / -318219, 16 BPS)!
+ShellFishPool hides block 15401->15402 at 664s (00000010010111011111100011010010 / 11111100100010111011011111111010 / -298093, 16 BPS)!
+ShellFishPool hides block 15402->15403 at 664s (00000010001101000011001000001110 / 11111100100001101001111010110010 / -334152, 16 BPS)!
+ShellFishPool hides block 15403->15404 at 664s (00000000101011000000101110100011 / 11111100100000010111001011001001 / -338921, 16 BPS)!
+HonestMinings found block 15391->15405 at 664s (00000010011100011100010110110100 / 11111100101001100111101011101101 / -684340, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+HonestMinings found block 15394->15406 at 664s (00000011010010100000110001010100 / 11111100100111011111000010000111 / -636602, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+ShellFishPool hides block 15404->15407 at 664s (00000001001100110101110010110011 / 11111100011110111011001010011001 / -376880, 16 BPS)!
+HonestMinings found block 15398->15408 at 664s (00000001011011101110100111100100 / 11111100100101011000111011110101 / -527896, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+ShellFishPool hides block 15407->15409 at 664s (00000000110101010100101110110110 / 11111100011101011101111101100110 / -381747, 16 BPS)!
+ShellFishPool hides block 15409->15410 at 664s (00000001001011100110011000000101 / 11111100011100000111100001010001 / -354069, 16 BPS)!
+HonestMinings found block 15400->15411 at 664s (00000000000000100011110100011001 / 11111100100010110110101110010001 / -635873, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+ShellFishPool hides block 15410->15412 at 664s (00000001000111110001010011111100 / 11111100011010101111001100100101 / -361772, 16 BPS)!
+ShellFishPool hides block 15412->15413 at 664s (00000000011101011010101000011100 / 11111100011001010110001000011111 / -364806, 16 BPS)!
+ShellFishPool hides block 15413->15414 at 664s (00000001010101111101010111011110 / 11111100010111111011101010110111 / -370536, 16 BPS)!
+ShellFishPool hides block 15414->15415 at 665s (00000001110011100010110000010110 / 11111100010110011111000111011011 / -379100, 16 BPS)!
+ShellFishPool hides block 15415->15416 at 665s (00000001100000000100010000011101 / 11111100010101000000011010011011 / -387904, 16 BPS)!
+HonestMinings found block 15402->15417 at 665s (00000001100111011001111110010101 / 11111100011111111100011101010010 / -782504, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+ShellFishPool hides block 15416->15418 at 665s (00000001011000111000010110000101 / 11111100010011100000011001101011 / -393264, 16 BPS)!
+HonestMinings found block 15404->15419 at 665s (00000000100001110000100100001000 / 11111100011101011100001111100101 / -765668, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+HonestMinings found block 15409->15420 at 665s (00000010100111010011000101100001 / 11111100011010110111011110110100 / -681906, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+HonestMinings found block 15412->15421 at 665s (00000001111100000000110000101111 / 11111100011000010101000110101100 / -631161, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+HonestMinings found block 15414->15422 at 665s (00000000001101011110100001100000 / 11111100010101100101011010011111 / -615448, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+ShellFishPool hides block 15418->15423 at 665s (00000010000010010111100110111101 / 11111100010001011101011101010100 / -536343, 15 BPS)!
+HonestMinings found block 15416->15424 at 665s (00000001111111010001011100011101 / 11111100010010101110001110011111 / -598780, 15 BPS).
+ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
 ```
 

@@ -1,22 +1,23 @@
 "use strict";
 
 var PULSE  = 0;
-var PPS = 16;
+var PPS = 32;
 var BLOCKS = null;
 var BLOCK_ID = 1;
-var BLOCK_TIME = 0.125; // seconds
+var BLOCK_TIME = 0.0625; // seconds
 var BPS = 0;
+var AVEDIFF = 0;
 
 var POOLS = {
     HM : {
-        HPP     : 66,
+        HPP     : 53,
         bonus   : 0,
         ansi    : "\x1b[32mHonestMinings",
         blocks  : null,
         selfish : false
     },
     SM : {
-        HPP     : 33,
+        HPP     : 47,
         bonus   : 0,
         ansi    : "\x1b[1;31mS\x1b[22;31mhell\x1b[1;31mF\x1b[22;31mish\x1b[1;34mP\x1b[22;34mool\x1b[31m",
         blocks  : null,
@@ -101,6 +102,7 @@ function get_blockchain(pool) {
                 var share = 0;
 
                 // Let's calculate the percentage of SM's blocks...
+                var hashing = 0;
                 {
                     var block = BLOCKS;
                     var i  = 0;
@@ -117,12 +119,14 @@ function get_blockchain(pool) {
                     for (var key in shares) {
                         if (shares.hasOwnProperty(key) && i > 0 && key in POOLS) {
                             shares[key] = Math.round(100*(shares[key]/i));
+                            hashing += POOLS[key].HPP;
                         }
                     }
                     share = ( pool in shares ? shares[pool] : 0 );
                 }
                 if (reveal_to === null) reveal_count = old_score;
-                app_receive_output(POOLS[pool].ansi+" \x1b[1;31mreveals "+reveal_count+" hidden block"+(reveal_count == 1 ? "" : "s")+" and has mined "+share+"% of blocks!!!\x1b[0m\n");
+                var hrs = Math.round(100*(POOLS[pool].HPP/hashing));
+                app_receive_output(POOLS[pool].ansi+" \x1b[1;31mreveals "+reveal_count+" hidden block"+(reveal_count == 1 ? "" : "s")+" and has mined "+share+"% of blocks with "+hrs+"% of hashing power.\x1b[0m\n");
             }
         }
     }
@@ -334,19 +338,39 @@ function app_main_loop() {
         var block = BLOCKS;
         var i  = 0;
         var shares = {};
+        var avediff = 0;
         for (i=0; i<14400; ++i) {
             if (block === null) break;
 
             if (block.pool in shares) shares[block.pool]++;
             else                      shares[block.pool] = 1;
 
+            avediff += (block.diff);
             block = block.next;
         }
+        avediff = Math.round(avediff/i);
 
         for (var key in shares) {
             if (shares.hasOwnProperty(key) && i > 0 && key in POOLS) {
                 //shares[key] = Math.round(100*(shares[key]/i));
                 POOLS[key].share = Math.round(100*(shares[key]/i));
+            }
+        }
+
+        if (PULSE % (PPS*20) === 10) {
+            if (avediff < AVEDIFF) {
+                var p = Math.round(((AVEDIFF-avediff)/AVEDIFF)*100000)/1000;
+                if (p >= 1.0) {
+                    app_receive_output("\x1b[1;31;40mAverage difficulty drops by "+p+"%.\x1b[0m\n");
+                    AVEDIFF = avediff;
+                }
+            }
+            else if (avediff > AVEDIFF) {
+                var p = Math.round(((avediff-AVEDIFF)/avediff)*100000)/1000;
+                if (p >= 1.0) {
+                    app_receive_output("\x1b[1;32;40mAverage difficulty raises by "+p+"%.\x1b[0m\n");
+                    AVEDIFF = avediff;
+                }
             }
         }
     }
@@ -437,8 +461,8 @@ function app_receive_output(raw_text) {
         container.scrollLeft = 0;
     }
 
-    if (output.innerHTML.length > 655360)
-    while (output.innerHTML.length > 491520) {
+    if (output.innerHTML.length > 65536)
+    while (output.innerHTML.length > 49152) {
         if (output.hasChildNodes()) {
             output.removeChild(output.firstChild);
         }
