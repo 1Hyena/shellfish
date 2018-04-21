@@ -18,19 +18,19 @@ over 50% of blocks. These results are consistent regardless of hown many times
 the simulation is executed. In fact, it is the nature of the Monte Carlo method
 to produce progressively more precise results as the simulation keeps running.
 
-On the other hand, if the selfish mining pool controls only 43.5% of the global
-hashing power then their block ownership in the final block chain is also 43.5%,
+On the other hand, if the selfish mining pool controls only 42.5% of the global
+hashing power then their block ownership in the final block chain is also 42.5%,
 as expected by the security model of Bitcoin. According to this simulator, any
-hashing power less than 43.5% results in even lesser ownership of the resulting
+hashing power less than 42% results in even lesser ownership of the resulting
 block chain. This means that Selfish Mining with the hashing power lesser than
-43.5% is in fact helping the honest miners and is thus counterproductive for the
+42% is in fact helping the honest miners and is thus counterproductive for the
 selfish miner.
 
-Since any single entity controlling more than 40% of the global hashing power is
+Since any single entity controlling more than 43% of the global hashing power is
 already a huge threat for the whole network even without Selfish Mining, it is
 clear that Selfish Mining is a non-issue. At the point where a single entity has
 accumulated such a large proportion of mining power, the Bitcoin network already
-has bigger fish to fry than the potential threat of Selfish Mining.
+has bigger fish to fry than the potential threat from Selfish Mining.
 
 
 # Author's Tip Jar
@@ -38,6 +38,28 @@ has bigger fish to fry than the potential threat of Selfish Mining.
 Base58:   1Erich1YUdkUAp9ynf4Rfw2ug8nBtuUmMu
 CashAddr: QZVQPSVVET3CPPU9Y0PE8L4ALPHQJCS09URP9RUJDH
 ```
+
+
+# Simulation Results
+Below are the results from running the simulator with different parameters. Each
+test was conducted 4 times due to variance. The block chain ownership percentage
+seen in the below table is thus the average value of 4 independent tests for
+each row. This table illustrates how many blocks in the final block chain were
+mined by the selfish miner at different levels of control over the total hashing
+power of the network.
+
+| Hashing Power |  Block Share  |
+| ------------- | ------------- |
+|      47%      |      50%      |
+|      46%      |      49%      |
+|      45%      |      48%      |
+|      44%      |      45%      |
+|      43%      |      43%      |
+|      42%      |      42%      |
+|      41%      |      40%      |
+|      37%      |      33%      |
+|      33%      |      27%      |
+
 
 # Sample Output
 Quick demo here: https://jsfiddle.net/ksfx0dou/
