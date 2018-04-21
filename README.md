@@ -18,12 +18,12 @@ over 50% of blocks. These results are consistent regardless of hown many times
 the simulation is executed. In fact, it is the nature of the Monte Carlo method
 to produce progressively more precise results as the simulation keeps running.
 
-On the other hand, if the selfish mining pool controls only 45% of the global
-hashing power, then their block ownership in the final block chain is also 45%,
+On the other hand, if the selfish mining pool controls only 43.5% of the global
+hashing power then their block ownership in the final block chain is also 43.5%,
 as expected by the security model of Bitcoin. According to this simulator, any
-hashing power less than 45% results in even lesser ownership over the resulting
+hashing power less than 43.5% results in even lesser ownership of the resulting
 block chain. This means that Selfish Mining with the hashing power lesser than
-45% is in fact helping the honest miners and is thus counterproductive for the
+43.5% is in fact helping the honest miners and is thus counterproductive for the
 selfish miner.
 
 Since any single entity controlling more than 40% of the global hashing power is
