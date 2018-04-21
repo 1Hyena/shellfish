@@ -33,13 +33,6 @@ accumulated such a large proportion of mining power, the Bitcoin network already
 has bigger fish to fry than the potential threat from Selfish Mining.
 
 
-# Author's Tip Jar
-```
-Base58:   1Erich1YUdkUAp9ynf4Rfw2ug8nBtuUmMu
-CashAddr: QZVQPSVVET3CPPU9Y0PE8L4ALPHQJCS09URP9RUJDH
-```
-
-
 # Simulation Results
 Below are the results from running the simulator with different parameters. Each
 test was conducted 4 times due to variance. The block chain ownership percentage
@@ -125,5 +118,12 @@ ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of ha
 ShellFishPool hides block 15418->15423 at 665s (00000010000010010111100110111101 / 11111100010001011101011101010100 / -536343, 15 BPS)!
 HonestMinings found block 15416->15424 at 665s (00000001111111010001011100011101 / 11111100010010101110001110011111 / -598780, 15 BPS).
 ShellFishPool reveals 2 hidden blocks and has mined 50% of blocks with 47% of hashing power.
+```
+
+
+# Author's Tip Jar
+```
+Base58:   1Erich1YUdkUAp9ynf4Rfw2ug8nBtuUmMu
+CashAddr: QZVQPSVVET3CPPU9Y0PE8L4ALPHQJCS09URP9RUJDH
 ```
 
