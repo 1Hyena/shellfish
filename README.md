@@ -2,7 +2,7 @@
 ShellFish is a Selfish Mining simulator that uses the Monte Carlo method to test
 the viability of Selfish Mining. It is written in JavaScript and its main goal
 is to reveal once and for all whether Selfish Mining poses any practical threats
-to the security of Bitcoin (Bitcoin Cash).
+to the security of Bitcoin.
 
 While abstract mathematics may be useful for exploring theoretical implications
 of even more theoretical conditions, a down-to-earth experiment is necessary to
